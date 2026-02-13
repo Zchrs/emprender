@@ -87,7 +87,7 @@ form?.addEventListener('submit', async (e) => {
       color: green; 
       font-size: 1.2rem; 
       margin-top: 1rem;
-      text-shadow: 0 0 1px #def3de;
+      text-shadow: 1px 1px 2px #def3de, -1px -1px 2px #def3de;
     `;
     msg.textContent = 'Registro enviado correctamente ✅';
     form.reset();
