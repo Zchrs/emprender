@@ -53,6 +53,7 @@ window.addEventListener("click", function(e) {
 const form = document.getElementById('contact');
 const msg = document.getElementById('formMsg');
 const terms = document.getElementById("terms");
+const API_URL = "https://friendsforlife.com.co";
 
 form?.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -73,7 +74,7 @@ form?.addEventListener('submit', async (e) => {
   if (!terms.checked) return showError("Debes aceptar los términos y condiciones.");
 
   try {
-    const res = await fetch('/api/users/auth/register', {
+    const res = await fetch(`${API_URL}/api/users/auth/register`, {
     // const res = await fetch('http://localhost:4000/api/users/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
