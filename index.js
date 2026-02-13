@@ -5,9 +5,12 @@ const cors = require('cors');
 const socketIo = require('socket.io');
 const dotenv = require('dotenv');
 
-// Configuración de Express
+// ==========================
+// CONFIGURACIÓN INICIAL
+// ==========================
+
 const app = express();
-const server = http.createServer(app); // Crea el servidor HTTP
+const server = http.createServer(app);
 
 // Cargar variables de entorno
 if (process.env.NODE_ENV === 'production') {
@@ -16,18 +19,20 @@ if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: '.env.development' });
 }
 
-// Configuración de CORS para Express
+// ==========================
+// CONFIGURACIÓN CORS
+// ==========================
+
 let corsOptions;
+
 if (process.env.NODE_ENV === 'production') {
   corsOptions = {
     origin: [
       'https://friendsforlife.com.co',
       'https://www.friendsforlife.com.co',
+      'https://emprendedores.friendsforlife.com.co',
       'https://admin.friendsforlife.com.co',
       'https://www.admin.friendsforlife.com.co',
-      'https://ultrasystem-api.vercel.app',
-      'https://www.ultrasystem-api.vercel.app',
-      'https://ultrasystem-api.vercel.app',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
@@ -37,22 +42,21 @@ if (process.env.NODE_ENV === 'production') {
   corsOptions = {
     origin: [
       'http://localhost:5173',
-      'http://192.168.1.77:5173',
-      'http://192.168.102.181:5173',
-      'localhost:4173',
+      'http://localhost:4173',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // Para permitir el intercambio de cookies
+    credentials: true,
     optionsSuccessStatus: 204,
   };
 }
 
 app.use(cors(corsOptions));
-
-// Middleware para manejar las opciones preflight
 app.options('*', cors(corsOptions));
 
-// Configuración de socket.io con CORS
+// ==========================
+// SOCKET.IO
+// ==========================
+
 const io = socketIo(server, {
   cors: {
     origin: corsOptions.origin,
@@ -61,14 +65,42 @@ const io = socketIo(server, {
   },
 });
 
-// Configuración de Express para leer y parsear el body
-app.use(express.json());
+io.on('connection', (socket) => {
+  console.log('Cliente conectado');
 
-// Configurar Express para servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+  socket.on('disconnect', () => {
+    console.log('Cliente desconectado');
+  });
+});
+
+// ==========================
+// MIDDLEWARES
+// ==========================
+
+app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Definir rutas
+// ==========================
+// SERVIR FRONT SEGÚN SUBDOMINIO
+// ==========================
+
+const mainStatic = express.static(path.join(__dirname, 'public'));
+const emprendedoresStatic = express.static(path.join(__dirname, 'emprendedores'));
+
+app.use((req, res, next) => {
+  const host = req.hostname;
+
+  if (host.startsWith('emprendedores')) {
+    return emprendedoresStatic(req, res, next);
+  }
+
+  return mainStatic(req, res, next);
+});
+
+// ==========================
+// RUTAS API
+// ==========================
+
 app.use('/api/admin/auth', require('./routes/admin'));
 app.use('/api/users/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/auth'));
@@ -86,27 +118,32 @@ app.use('/api/pqrs', require('./routes/pqrs'));
 app.use('/api/likes', require('./routes/likes'));
 app.use('/api/codes/registration/admin', require('./routes/regCodeAdmin'));
 app.use('/api/accounts/recovery', require('./routes/recovery'));
-app.use("/api/comments", require("./routes/comments"));
+app.use('/api/comments', require('./routes/comments'));
 
-app.use(express.static('uploads'));
+// ==========================
+// CATCH-ALL PARA SPA
+// ==========================
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+app.get('*', (req, res) => {
+  const host = req.hostname;
+
+  if (host.startsWith('emprendedores')) {
+    return res.sendFile(
+      path.join(__dirname, 'emprendedores', 'index.html')
+    );
+  }
+
+  return res.sendFile(
+    path.join(__dirname, 'public', 'index.html')
+  );
 });
 
-// Configuración de socket.io
-io.on('connection', (socket) => {
-  console.log('Cliente conectado');
+// ==========================
+// INICIAR SERVIDOR
+// ==========================
 
-  // Aquí puedes manejar eventos de WebSocket
-
-  socket.on('disconnect', () => {
-    console.log('Cliente desconectado');
-  });
-});
-
-// Escucha de peticiones en el puerto 8000 (o el que definas en .env)
 const port = process.env.PORT || 4000;
-server.listen(port, '0.0.0.0',() => {
+
+server.listen(port, '0.0.0.0', () => {
   console.log(`Servidor iniciado en puerto ${port}`);
 });
