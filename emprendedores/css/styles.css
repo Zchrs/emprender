@@ -1,7 +1,13 @@
+* {
+  box-sizing: border-box; /* ← SALVAVIDAS: evita que padding desborde */
+}
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #f52a85, #1fa9a5);
+  width: 100%;
+    overflow-x: hidden;
+  position: relative; 
   color: white;
   text-align: center;
 }
@@ -40,8 +46,10 @@ nav a:hover::before{
 }
 
 .hero {
+  width: 100%;
   height: 100%;
   display: grid;
+  position: relative;
   gap: 20px;
 }
 .hero img{
@@ -68,7 +76,7 @@ nav a:hover::before{
   border-radius: 50px;
   margin: auto;
   font-size: 18px;
-  bottom: 80px;
+  bottom: 250px;
   left: 0;
   right: 0;
 
@@ -182,11 +190,15 @@ nav a:hover::before{
   height: 100%;
 }
 
-.mapa img{
+.contact .mapa img{
   display: grid;
   margin: auto;
     border-radius: 15px;
   box-shadow: #484848b2 0px 10px 15px;
+}
+.contact .mapa p,
+.contact .mapa strong {
+  word-break: break-all;
 }
 .contact img{
   width: 90%;
@@ -357,53 +369,123 @@ footer .copy {
   transition: transform 0.6s ease-in-out;
 }
 
-@media (max-width: 680px) {
-  nav{
-  width: 80%;
-}
-.contact form {
-    width: 80%;
-}
-.hero{
-  min-height: 50vh;
+@media (max-width: 480px) {
+  /* 1. NAV CORREGIDO */
+  nav {
+    left: 10px;           /* ← Cambiado de 0 a 10px */
+    right: 10px;          /* ← Añadido para controlar ambos lados */
+    width: auto;          /* ← Cambiado de fit-content */
+    max-width: calc(100% - 20px); /* ← Seguro que no desborda */
+    margin: 0 auto;   
+    justify-content: center;    /* ← Centrado */
+    gap: 25px;             /* ← Reducir gap en móvil */
+  }
+  
+  nav a {
+    font-size: 16px;      
+  }
+
+  .hero {
+  height: 100%;
+  display: grid;
+  min-height: 60vh;
+  gap: 20px;
 }
 .hero img{
-  height: 100%;
+ height: 100%;
 }
 .hero .button {
-  width: 40%;
   height: fit-content;
-  top: 0px;
+  width: 50%;
+  padding: 15px 50px;
+  bottom: 80px;
 }
-.form-section {
-  background: white;
-  color: #333;
-  padding: 10px;
-}
-.services-container{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border-radius: 15px;
-  gap: 20px;
-  width: 80%;
-  margin: auto;
-}
-.services-container img{
-  padding: 50px 10px;
-  width: 80%;
-  object-fit: cover;
-  filter: invert(50%) brightness(500%);
-  margin: auto;
-}
-footer .footer-flex {
-  grid-template-columns: repeat(3, 1fr);
-}
-footer .footer-flex img {
-  width: 90%;
-  margin: auto;
-  object-fit: cover;
-}
-.carousel-container {
-  width: 90%;
+
+  
+  .services-container {
+    width: 95%;           
+    gap: 10px;            
+    padding: 0 5px;       
+    box-sizing: border-box; 
+  }
+  
+  .services-container img {
+    padding: 30px 0;      
+    width: 60%;         
+  }
+
+ 
+  .contact form {
+    width: 90%;           
+    padding: 80px 10px;   
+    box-sizing: border-box; 
+  }
+
+ 
+  .hero .button {
+    position: relative;
+    width: 70%;           
+    min-width: 180px;     
+    max-width: 250px;     
+    padding: 12px 15px;   
+    margin: -30px auto 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+  }
+
+  
+  .form-section {
+    padding: 20px 10px;   
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+ 
+  footer .footer-flex {
+    gap: 10px;
+    padding: 0 10px 30px;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  footer .footer-flex img {
+    width: 100%;
+    max-width: 80px;
+  }
+
+ 
+  .carousel-container {
+    width: 95%;           
+    height: 400px;
+    margin: 0 auto 50px;
+  }
+
+  
+  input, button {
+    width: 100%;  
+    box-sizing: border-box;
+  }
+
+  
+  .modal-content {
+    width: 95%;          
+    margin: 10% auto;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  
+  .contact-container::before {
+    width: calc(100% - 20px); 
+    left: 10px;            
+    right: 10px;
+  }
+  input{
+  background: transparent;
+  outline: #ffffff76 dashed 1px;
+  color: white;
+    height: 40px;
 }
 }
