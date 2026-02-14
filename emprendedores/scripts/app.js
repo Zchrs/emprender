@@ -31,9 +31,14 @@ setInterval(() => {
 /************* MODAL *************/
 const modal = document.getElementById("privacyModal");
 const openBtn = document.getElementById("openModal");
+const openBtnTwo = document.getElementById("openModalTwo");
 const closeBtn = document.querySelector(".close");
 
 openBtn?.addEventListener("click", function(e) {
+  e.preventDefault();
+  modal.style.display = "block";
+});
+openBtnTwo?.addEventListener("click", function(e) {
   e.preventDefault();
   modal.style.display = "block";
 });
