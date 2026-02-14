@@ -1,8 +1,8 @@
-* {
-  box-sizing: border-box; /* ← SALVAVIDAS: evita que padding desborde */
-}
+
 body {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #f52a85, #1fa9a5);
   width: 100%;
@@ -20,7 +20,7 @@ nav{
   right: 50px;
   margin: auto;
   width: 30%;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
   height: 50px;
 }
@@ -370,15 +370,13 @@ footer .copy {
 }
 
 @media (max-width: 480px) {
-  /* 1. NAV CORREGIDO */
   nav {
-    left: 10px;           /* ← Cambiado de 0 a 10px */
-    right: 10px;          /* ← Añadido para controlar ambos lados */
-    width: auto;          /* ← Cambiado de fit-content */
-    max-width: calc(100% - 20px); /* ← Seguro que no desborda */
+    left: 10px;          
+    width: auto;          
+    max-width: calc(100% - 20px); 
     margin: 0 auto;   
-    justify-content: center;    /* ← Centrado */
-    gap: 25px;             /* ← Reducir gap en móvil */
+    justify-content: center; 
+    gap: 25px;             
   }
   
   nav a {
@@ -433,18 +431,10 @@ footer .copy {
     right: 0;
     box-sizing: border-box;
   }
-
-  
-  .form-section {
-    padding: 20px 10px;   
-    width: 100%;
-    box-sizing: border-box;
-  }
-
  
   footer .footer-flex {
     gap: 10px;
-    padding: 0 10px 30px;
+    padding: 0 10px 10px;
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     box-sizing: border-box;
@@ -458,7 +448,7 @@ footer .copy {
  
   .carousel-container {
     width: 95%;           
-    height: 400px;
+    height: 600px;
     margin: 0 auto 50px;
   }
 
