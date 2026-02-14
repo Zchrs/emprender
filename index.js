@@ -54,6 +54,21 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 // ==========================
+// REDIRECCIÓN DE SUBDOMINIOS
+// ==========================
+app.use((req, res, next) => {
+  const host = req.hostname;
+  // Redirige de 'emprender' a 'emprendedores'
+  if (host.startsWith('emprender')) {
+    const newHost = host.replace('emprender', 'emprendedores');
+    const redirectUrl = `${req.protocol}://${newHost}${req.originalUrl}`;
+    console.log(`🔄 Redirigiendo de ${host} a ${newHost}`);
+    return res.redirect(301, redirectUrl);
+  }
+  next();
+});
+
+// ==========================
 // SOCKET.IO
 // ==========================
 

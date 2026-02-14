@@ -73,11 +73,25 @@ nav a:hover::before{
 }
 .services{
   display: grid;
-  border-radius: 15px;
+  height: fit-content;
+  padding: 50px 0;
+  width: 90%;
   margin: auto;
 }
-
-.services img{
+.services-container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-radius: 15px;
+  gap: 25px;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+}
+.services-container img{
+  padding: 50px 0;
+  width: 20%;
+  object-fit: cover;
+  filter: invert(50%) brightness(500%);
   margin: auto;
 }
 

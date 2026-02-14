@@ -75,7 +75,6 @@ form?.addEventListener('submit', async (e) => {
 
   try {
     const res = await fetch(`${API_URL}/api/users/auth/register`, {
-    // const res = await fetch('http://localhost:4000/api/users/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -88,7 +87,7 @@ form?.addEventListener('submit', async (e) => {
       color: green; 
       font-size: 1.2rem; 
       margin-top: 1rem;
-      text-shadow: 1px 1px 2px #def3de, -1px -1px 2px #def3de;
+      text-shadow: 1px 1px 2px #def3de, -1px -1px 2px #f3dede;
     `;
     msg.textContent = 'Registro enviado correctamente ✅';
     form.reset();
@@ -99,7 +98,10 @@ form?.addEventListener('submit', async (e) => {
 });
 
 function showError(message) {
-  msg.style.color = 'red';
+  msg.style.cssText = `
+  color: red;
+  text-shadow: 1px 1px 1px #fae5e5, -1px -1px 1px #fae5e5;
+  `;
   msg.textContent = message;
 }
 

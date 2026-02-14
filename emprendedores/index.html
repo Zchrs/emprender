@@ -5,25 +5,38 @@
   <meta charset="UTF-8">
   <title>Feria Emprendedores</title>
   <link rel="stylesheet" href="/css/styles.css">
-  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
 </head>
 
 <body>
 
   <header class="hero">
     <nav>
-      <a href="#contact">Contacto</a><a href="/privacy-policy" id="openModal">Legal</a><a href="#more-info">Info</a>
+      <a href="#contact">Contacto</a>
+      <a href="/privacy-policy" id="openModal">Legal</a>
+      <a href="#more-info">Info</a>
     </nav>
     <img loading="lazy" src="assets/img/banner.png" alt="Hero">
     <a class="button" href="#more-info">Más información</a>
-    <h1>Feria Emprendedores</h1>
-    <p>Expo de Innovación y Emprendimiento</p>
   </header>
 
   <section class="services">
-    <img loading="lazy" src="assets/img/services.jpg">
-    <h2>Servicios</h2>
-    <p>Impulsamos ideas, empresas y talento.</p>
+    <h1>Feria Emprendedores</h1>
+    <p>Expo de Innovación y Emprendimiento donde encontrarás:</p>
+    <div class="services-container">
+      <div>
+        <h2>Moda</h2>
+        <img loading="lazy" src="./assets/img/fashion.svg"></div>
+      <div>
+        <h2>Gastronomía</h2>
+        <img loading="lazy" src="./assets/img/gastronomy.svg"></div>
+      <div>
+        <h2>Joyería</h2>
+        <img loading="lazy" src="./assets/img/jewelry.svg"></div>
+      <div>
+        <h2>Bingo</h2>
+        <img loading="lazy" src="./assets/img/bingo.svg"></div>
+    </div>
   </section>
 
 
@@ -68,8 +81,9 @@
           name="address" placeholder="Dirección" required> <label class="label"> 
             <input type="checkbox" id="terms"
             class="checkbox" required>
-          <div> Al registrarme confirmo aceptar los términos y condiciones y la política de tratamiento de datos. <a
-              href="/privacy-policy" id="openModal">Leer términos y condiciones</a> </div>
+          <div> Al registrarme confirmo aceptar los términos y condiciones y la política de tratamiento de datos. 
+            <a href="/privacy-policy" id="openModalTwo">Leer términos y condiciones</a> 
+          </div>
         </label> <button type="submit">Enviar</button>
         <p id="formMsg"></p>
       </form>
